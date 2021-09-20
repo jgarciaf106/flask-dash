@@ -9,7 +9,7 @@
 
 1. Login in into your mysql terminal:
 ```sh
-$ mysql
+$ psql
 ```
 2. Once inside, create the database (if needed)
 ```sql
