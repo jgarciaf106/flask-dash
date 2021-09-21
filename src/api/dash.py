@@ -7,7 +7,7 @@ import pandas as pd
 
 
 def dash_app(flask_server):
-    app = dash.Dash(__name__,server=flask_server)
+    app = dash.Dash(__name__, server=flask_server)
 
     df = pd.DataFrame(
         {
@@ -22,7 +22,6 @@ def dash_app(flask_server):
     app.layout = html.Div(
         children=[
             html.H1(children="Hello Dash"),
-            html.H1(children="Test Div"),
             html.Div(
                 children="""
             Dash: A web application framework for your data.
@@ -33,4 +32,3 @@ def dash_app(flask_server):
     )
 
     return app
-
