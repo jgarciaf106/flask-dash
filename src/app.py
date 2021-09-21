@@ -6,22 +6,17 @@ from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_cors import CORS
-import dash
-from dash import dcc
-from dash import html
-import plotly.express as px
-import pandas as pd
 from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api
 from api.admin import setup_admin
+from api.dash import dash_app
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
 server = Flask(__name__)
 server.url_map.strict_slashes = False
-app = dash.Dash(__name__, server=server)
 
 # database condiguration
 if os.getenv("DATABASE_URL") is not None:
@@ -63,30 +58,8 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0 # avoid cache memory
     return response
 
-# Dash Call Backs
-df = pd.DataFrame(
-    {
-        "Fruit": ["Apples", "Oranges", "Bananas", "Apples", "Oranges", "Bananas"],
-        "Amount": [4, 1, 2, 2, 4, 5],
-        "City": ["SF", "SF", "SF", "Montreal", "Montreal", "Montreal"],
-    }
-)
-
-fig = px.bar(df, x="Fruit", y="Amount", color="City", barmode="group")
-
-app.layout = html.Div(
-    children=[
-        html.H1(children="Hello Dash"),
-        html.H1(children="Test Div"),
-        html.Div(
-            children="""
-        Dash: A web application framework for your data.
-    """
-        ),
-        dcc.Graph(id="example-graph", figure=fig),
-    ]
-)
-
+# render dash app
+dash_app(server)
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
