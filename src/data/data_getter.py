@@ -13,7 +13,7 @@ import xlwings as xw
 def set_engine(
     cred_file,
     dsn,
-    path="C:/Users/garciand/OneDrive - HP Inc/Desktop/Python_Analytics/NoteBooks/Credentials/",
+    path="flask-dash/src/credentials/",
 ):
     credentials = path + "{0}.json".format(cred_file)
     with open(credentials) as get:
@@ -25,12 +25,11 @@ def set_engine(
         "postgresql://{0}:{1}@localhost/{2}".format(user_name, password, dsn)
     )
 
-
 # query external file queries
 def external_query(
     query_name,
     engine,
-    path="C:/Users/garciand/OneDrive - HP Inc/Desktop/Python_Analytics/NoteBooks/Queries/",
+    path="flask-dash/src/queries",
 ):
     query_path = path + "{0}.sql".format(query_name)
     with open(query_path) as get:
@@ -47,7 +46,7 @@ def internal_query(query, engine):
 def file_query(
     file_name,
     folder,
-    path="C:/Users/garciand/OneDrive - HP Inc/Desktop/ETL/Input Data Sources/",
+    path="flask-dash/src/data_files/",
 ):
     file = path + folder + "/" + file_name
     return pd.read_excel(file, index_col=0)

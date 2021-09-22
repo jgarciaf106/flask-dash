@@ -22,6 +22,8 @@ dash = "*"
 pandas = "*"
 xlwings = "*"
 black = "*"
+openpyxl = "*"
+dash-bootstrap-components = "*"
 
 [requires]
 python_version = "3.9"
